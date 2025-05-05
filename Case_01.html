@@ -2,10 +2,153 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Case_01</title>
+    <title>Night-Rider Lights</title>
+
+    <style>
+        #main{
+            display: flex;
+            position: relative;
+            width: 850px;
+            left: 21vw;
+            top: 15vw;
+
+        }
+
+        .div-1{
+            display: grid;
+            border: 2px solid black;
+            width: 150px;
+            aspect-ratio: 2/1;
+            margin-right: 5px;
+            border-radius: 10px;
+
+
+        }
+
+
+
+        #h-1,#h-2,#h-3,#h-4,#h-5,#h-6{
+
+        }
+        #div-buttons{
+            position: relative;
+            width: 150px;
+            height: 100px;
+            left: 45vw;
+            top: 250px;
+        }
+
+        .light_on{
+            background: red;
+
+        }
+
+        .light_on2{
+            background: lightpink;
+
+
+        }
+
+        #start_btn{
+
+            background-color: cornflowerblue;
+        }
+        #stop_btn{
+
+            background-color: #f15858;
+        }
+
+
+    </style>
 </head>
 <body>
-<div></div>
+<script src="lib/jquery-3.7.1.min.js"></script>
 
+<h1 id="top-line"></h1>
+<div id="main">
+    <div class="div-1" id="light-1">
+
+    </div>
+
+    <div class="div-1" id="light-2">
+
+
+    </div>
+
+    <div class="div-1" id="light-3">
+
+
+    </div>
+
+    <div class="div-1" id="light-4">
+
+
+    </div>
+
+    <div class="div-1" id="light-5">
+
+
+    </div>
+
+    <div class="div-1" id="light-6">
+
+
+    </div>
+</div>
+
+
+<br><br>
+<div id="div-buttons">
+
+    <button id="start_btn" style="width: 70px; height: 30px" > Start </button>
+    <button id="stop_btn" style="width: 70px;  height: 30px"> Stop</button>
+</div>
+
+
+
+<script>
+    var myInterval = null;
+    var current_light_index =0;
+    var max_light_count = 6;
+    var move = "RIGHT";
+
+
+    function updateLightPanel(){
+        $(".div-1").removeClass("light_on");
+        $(".div-1").removeClass("light_on2");
+
+        $(".div-1").eq(current_light_index).addClass("light_on");
+
+
+        if (move==="RIGHT"){
+            if(current_light_index!==0)$(".div-1").eq(current_light_index-1).addClass("light_on2");
+            ++current_light_index;
+            if (current_light_index > max_light_count -2){
+                move= "LEFT";
+
+            }
+        }else {
+            $(".div-1").eq(current_light_index+1).addClass("light_on2");
+            --current_light_index;
+
+            if (current_light_index===0){
+                move = "RIGHT";
+            }
+        }
+
+
+    }
+    $("#start_btn").on("click", () => {
+        myInterval = setInterval(updateLightPanel, 50);
+
+    });
+
+    $("#stop_btn").on("click", () => {
+        myInterval = clearInterval(myInterval);
+
+    });
+
+
+</script>
 </body>
 </html>
